@@ -22,3 +22,4 @@
 ### 기록
 * [1주차 회의록](/docs/week_1.md)
 * [2주차 회의록](/docs/week_2.md)
+* [3주차 회의록](/docs/week_3.md)
