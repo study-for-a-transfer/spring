@@ -9,8 +9,8 @@
 ## 진행
 * 강의 수강
 * 발표 및 논의
-	* 백상일: 
-		* .
+	* 백상일: Junit 5 에 대하여
+		* [링크](https://www.notion.so/gentledot/TDD-Test-Driven-Development-8614df4472f54de8af26b6fa71e50e14)
 	* 엄홍준: 링크
 
 ##### [목차로 이동](#목차)
