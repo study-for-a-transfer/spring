@@ -24,3 +24,5 @@
 * [2주차 회의록](/docs/week_2.md)
 * [3주차 회의록](/docs/week_3.md)
 * [4주차 회의록](/docs/week_4.md)
+* [5주차 회의록](/docs/week_5.md)
+* [6주차 회의록](/docs/week_6.md)
