@@ -71,6 +71,7 @@
 * MyBatis
 	* [CDATA](https://epthffh.tistory.com/entry/Mybatis-%EC%97%90%EC%84%9C-CDATA-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0)
 	* [WHERE 1=1](https://jdm.kr/blog/7)
+	* [Mapper XML Files: resultType & resultMap](https://araikuma.tistory.com/476)
 
 
 ##### [목차로 이동](#목차)
