@@ -32,13 +32,13 @@
 ### 브라우저에 Hello world 띄워보기
 <img src="./img/week_01_02.png" width="800" height="350"></br>
 
-* [pom.xml](https://github.com/study-for-a-transfer/spring/blob/master/src/eom/ex00/pom.xml): 의존성 추가  
+* [pom.xml](https://github.com/study-for-a-transfer/spring/commit/6f7a3a9f497d5b20475b84c14a1c694d11d1f718#diff-b0995e81632f71b9e1db001165a7124fR22-R31): 의존성 추가  
 	```txt
 	- spring-boot-starter-web
 	- lombok -> slf4j?
 	```
-* [HomeController](https://github.com/study-for-a-transfer/spring/blob/master/src/eom/ex00/src/main/java/org/zerock/web/ex00/controller/HomeController.java): 요청url 설정
-* [application.properties](https://github.com/study-for-a-transfer/spring/blob/master/src/eom/ex00/src/main/resources/application.properties)  
+* [HomeController](https://github.com/study-for-a-transfer/spring/commit/6f7a3a9f497d5b20475b84c14a1c694d11d1f718#diff-55d3745e9663ea9d40e84e07a085cacdR14-R34): 요청url 설정
+* [application.properties](https://github.com/study-for-a-transfer/spring/commit/6f7a3a9f497d5b20475b84c14a1c694d11d1f718#diff-eb7bbee74139df5b83f1050e25ee30fbR1-R8)  
 	```txt
 	- JSP 설정
 	  - 추가적으로 webapp/WEB-INF/jsp 폴더 구조 생성(스프링부트 특성상 직접 생성 필요)
