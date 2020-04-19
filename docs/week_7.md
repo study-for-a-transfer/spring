@@ -21,7 +21,9 @@
 
 ## 실습
 - nara1030: [실습 및 정리](./eom/week_1.md)
-- 
+- gentledot
+	- [깃](https://github.com/GentleDot/learningSpringWithLegacyCode)
+	- [노션](https://www.notion.so/Spring-Boot-4906cbe24eb54227975a7a9699288743)
 
 ##### [목차로 이동](#목차)
 
