@@ -53,8 +53,10 @@
 ### DB 연결 테스트
 총 세 부분으로 테스트를 진행한다(출처: [스프링에서 DB 접속하는 방법 정리](https://repacat.tistory.com/23)).
 
-1. JDBC를 이용한 접속 테스트
-	* 직접 드라이버 다운 후 추가(ojdbc6)
+1. JDBC를 이용한 접속 테스트  
+	```txt
+	직접 드라이버 다운 후 추가(ojdbc6)
+	```
 2. Spring에서 DataSource 정의 후 이를 통한 접속 테스트  
 	```txt
 	pom.xml 의존성 추가
@@ -63,8 +65,23 @@
 	root-context.xml
 	  - dataSource 설정(spring에서 jdbc 통해 DB 접속 가능 설정)
 	    (spring-jdbc 모듈 사용)
+	    -> org.springframework.jdbc.datasource.DriverManagerDataSource
+	  - DataSource란 Connection Pool을 구현하기 위한 스펙을 정해놓은 인터페이스
+	    -> org.apache.commons.dbcp2.BasicDataSource
 	```
-3.
+3. Spring에서 MyBatis 설정 후 이를 이용한 접속 테스트  
+	```txt
+	root-context.xml
+	  1. sqlSessionFactory 설정
+	    - sqlSession을 만드는 역할 담당(DataSource 필요)
+	    -> org.mybatis.spring.SqlSessionFactoryBean
+	  2. sqlSession 설정
+	    - sql문을 실제로 호출해주는 객체
+	    -> org.mybatis.spring.SqlSessionTemplate
+	```
+
+- - -
+<img src="./img/week_01_06.png" width="800" height="350"></br>
 
 #### Oracle 연결 테스트
 <img src="./img/week_01_03.png" width="650" height="150"></br>
@@ -236,7 +253,18 @@ public class JdbcConfig {
 	* [스프링 부트 커스텀 설정 프로퍼티 클래스 사용하기](https://javacan.tistory.com/entry/springboot-configuration-properties-class)
 	* [스프링 @Value 어노테이션으로 properties 값 읽어오기](https://sas-study.tistory.com/273)
 * 테스트
-	1. @RunWith & @ContextConfiguration
+	1. @RunWith & @ContextConfiguration  
+		```txt
+		@RunWith
+		  - https://stackoverflow.com/questions/25317009/what-does-this-do-runwithspringjunit4classrunner-class
+		
+		@ContextConfiguration
+		  - 테스트 코드를 실행할 때 스프링이 로딩되도록 하는 부분
+		  - 즉 자동으로 만들어줄 애플리케이션 컨텍스트의 설정 파일 위치 지정
+		
+		- 스프링의 spring-test 모듈은 위와 같은 간단한 애노테이션 설정으로 실제 스프링의 동작을 확인할 수 있는 좋은 방법
+		- 특히 WAS 실행이 매번 상당히 많은 시간이 드는 환경에서는 필수적
+		```
 	2. @SpringBootTest
 
 ##### [목차로 이동](#목차)
@@ -320,8 +348,14 @@ public class DataSourceTest {
 ##### [목차로 이동](#목차)
 
 #### MyBatis 연결 테스트
-<img src="./img/week_01_01.png" width="800" height="300"></br>
+MyBatis를 스프링과 함께 사용하려면 스프링의 애플리케이션 컨텍스트에 적어도 두 가지를 정의해줄 필요가 있다.
 
+1. SqlSessionFactory
+	* 데이터베이스와의 연결을 생성하고, 처리
+2. Mapper Interface
+	* 
+
+<img src="./img/week_01_01.png" width="800" height="300"></br>
 
 - - -
 * pom.xml  
@@ -336,14 +370,17 @@ public class DataSourceTest {
 
 ## 참고
 * Spring-Boot & MyBatis
-	1. [레퍼런스-1](https://brunch.co.kr/@ourlove/66)
-	2. [레퍼런스-2](https://copycoding.tistory.com/275)
-	3. [mybatis-spring-boot-autoconfigure](http://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/)
-* MyBatis
+	1. [Spring-Boot & MyBatis & Oracle](https://brunch.co.kr/@ourlove/66)
+	2. [mybatis-spring-boot-autoconfigure](http://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/)
+* MyBatis & SQL
 	* [CDATA](https://epthffh.tistory.com/entry/Mybatis-%EC%97%90%EC%84%9C-CDATA-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0)
 	* [WHERE 1=1](https://jdm.kr/blog/7)
 	* [Mapper XML Files: resultType & resultMap](https://araikuma.tistory.com/476)
 * MyBatis & JDBC
-
+	* [MyBatis, DataSource 설정](https://mangkyu.tistory.com/22)
+	* [MyBatis란? 개념 및 구조](https://khj93.tistory.com/entry/MyBatis-MyBatis%EB%9E%80-%EA%B0%9C%EB%85%90-%EB%B0%8F-%ED%95%B5%EC%8B%AC-%EC%A0%95%EB%A6%AC)
+* MyBatis & Mapper Interface
+	* [MyBatis Mapper Interface란?](https://bigstupid.tistory.com/23)
+	* [MyBatis에서 Mapper Interface로 고도화하기](https://mobicon.tistory.com/383)
 
 ##### [목차로 이동](#목차)
