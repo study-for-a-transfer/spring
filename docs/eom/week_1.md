@@ -21,8 +21,8 @@
 ## Todo
 - 1주차: 프로젝트 기본 설정
 	1. [x] 브라우저에 Hello world 띄워보기
-	2. [ ] MySQL 연결 테스트(jUnit)
-	3. [ ] MySQL과의 연결 담당하는 DataSource 설정 테스트
+	2. [x] MySQL 연결 테스트(jUnit)
+	3. [x] MySQL과의 연결 담당하는 DataSource 설정 테스트
 	4. [ ] MyBatis 연결 테스트
 - 추가
 	1. [ ] 개별 브랜치 추가
@@ -196,7 +196,35 @@ public class OracleConnectionTest {
 
 <img src="./img/week_01_04.png" width="800" height="300"></br>
 
-다만.
+다만 프로퍼티를 읽어올 때 좀 애를 먹었다. 설정 클래스(JdbcConfig)에서 프로퍼티를 제대로 못 읽어오는 문제가 있었는데 해결을 못했다. 코드는 아래와 같다(혹시 몰라 Bean 생성을 따로 해주기도 하였으나 해결이 안 됐다).
+
+```java
+@Getter
+@Setter
+@Configuration
+@ConfigurationProperties(prefix = "spring.datasource")
+public class JdbcConfig {
+    @Value("${driver-class-name}")
+    private String driverClassName;
+    @Value("${url}")
+    private String url;
+    @Value("${username}")
+    private String username;
+    @Value("${password}")
+    private String password;
+
+    // alt + ins: toString 오버라이딩
+    @Override
+    public String toString() {
+        return "JdbcConfig{" +
+                "driverClassName='" + driverClassName + '\'' +
+                ", url='" + url + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
+}
+```
 
 - - -
 * [OracleConnectionTest](https://github.com/study-for-a-transfer/spring/commit/6f7a3a9f497d5b20475b84c14a1c694d11d1f718#diff-8b92c1dc0a8783cc760f1933f8dba910R19-R29)
@@ -207,11 +235,87 @@ public class OracleConnectionTest {
 * 설정 파일 분리하기
 	* [스프링 부트 커스텀 설정 프로퍼티 클래스 사용하기](https://javacan.tistory.com/entry/springboot-configuration-properties-class)
 	* [스프링 @Value 어노테이션으로 properties 값 읽어오기](https://sas-study.tistory.com/273)
+* 테스트
+	1. @RunWith & @ContextConfiguration
+	2. @SpringBootTest
 
 ##### [목차로 이동](#목차)
 
 #### DataSource 설정 테스트
+<img src="./img/week_01_05.png" width="800" height="500"></br>
 
+DB 설정 클래스는 다음과 같다(JdbcConfig 클래스는 이전과 같다).
+
+```java
+// src/main/java
+package org.zerock.web.ex00.config;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
+import javax.sql.DataSource;
+
+@Configuration
+@Import(JdbcConfig.class)
+public class DataSourceConfig {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataSourceConfig.class);
+
+    @Bean
+    public DataSource dataSource(JdbcConfig jdbcConfig) {
+        LOGGER.debug("로거: {}", jdbcConfig.toString());
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName(jdbcConfig.getDriverClassName());
+        dataSource.setUrl(jdbcConfig.getUrl());
+        dataSource.setUsername(jdbcConfig.getUsername());
+        dataSource.setPassword(jdbcConfig.getPassword());
+        return dataSource;
+    }
+}
+```
+
+테스트 클래스는 아래와 같다.
+
+```java
+// src/test/java
+package org.zerock.web.ex00.database;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.zerock.web.ex00.config.DataSourceConfig;
+
+import javax.sql.DataSource;
+import java.sql.Connection;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = DataSourceConfig.class)
+public class DataSourceTest {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DataSourceTest.class);
+
+    @Autowired
+    private DataSource ds;  // DataSource & DriverManagerDataSource
+
+    @Test
+    public void testConnection() throws Exception {
+        try (Connection con = ds.getConnection()) {
+            LOGGER.info(String.valueOf(con));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+- - -
+* ojdbc6 제거 테스트
 
 ##### [목차로 이동](#목차)
 
