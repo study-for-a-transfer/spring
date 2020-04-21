@@ -2,12 +2,10 @@
 <%@ page session="false" %>
 <html>
 <head>
-    <title>Home</title>
+    <title>Product Detail</title>
 </head>
 <body>
-    <h1>
-        ${greeting}
-    </h1>
-    <P>  The time on the server is ${serverTime}. </P>
+    <span>${product.name}</span>
+    <span>${product.price}</span>
 </body>
 </html>

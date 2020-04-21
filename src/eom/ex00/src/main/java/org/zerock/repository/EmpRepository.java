@@ -1,4 +1,4 @@
-package org.zerock.web.ex00.repository;
+package org.zerock.repository;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
