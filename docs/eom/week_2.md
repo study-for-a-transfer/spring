@@ -106,7 +106,7 @@
 	    - SqlSessionTemplate은 SqlSession의 구현체
 	    - https://mybatis.org/spring/ko/sqlsession.html
 	```
-	<img src="./img/week_02_01.png" width="700" height="350"></br>
+	<img src="./img/week_02_02.png" width="700" height="350"></br>
 5. .
 
 ##### [목차로 이동](#목차)
