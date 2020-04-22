@@ -39,13 +39,57 @@
 
 ## 상세
 ### 프로젝트 설정
-```txt
-- spring-boot: 2.2.6.RELEASE
-- java: 1.8
-- junit: 4.12
-- mybatis: 2.1.2
-- oracle
-```
+#### 환경
+* spring-boot: 2.2.6.RELEASE
+* java: 1.8
+* junit: 4.12
+* mybatis: 2.1.2
+* oracle
+
+##### [목차로 이동](#목차)
+#### 에러
+환경 설정하며 발생했던 에러를 기록한다.
+
+1. datasource  
+	```txt
+	- 에러 메세지
+	org.springframework.beans.factory.BeanCreationException: 
+		Error creating bean with name 'dataSource' defined in class path resource [org/zerock/config/DataSourceConfig.class]: 
+		Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: 
+		Failed to instantiate [javax.sql.DataSource]: Factory method 'dataSource' threw exception; 
+		nested exception is java.lang.IllegalStateException: 
+		Could not load JDBC driver class [oracle.jdbc.driver.OracleDriver]
+	
+	- 설명
+	  1. pom.xml에 commons-dbcp2 의존성 추가 후 아래와 같은 에러 발생
+	    - Could not autowire. There is more than one bean of 'DataSource' type.
+	        Beans: dataSource   (DataSourceConfig.java) 
+	               dataSource   (DataSourceConfiguration.class) 
+	  2. @Qualifier 권장 봤을 때 DataSource 구현체가 2개 있어서 발생하는 예외라 추측
+	```
+	<img src="./img/week_02_01.png" width="700" height="350"></br>
+2. org.xml.sax.SAXParseException  
+	```txt
+	- 에러 메세지
+	org.springframework.beans.factory.UnsatisfiedDependencyException: 
+		Error creating bean with name 'sqlSessionTemplate' defined in class path resource [org/zerock/config/MyBatisConfig.class]: 
+		Unsatisfied dependency expressed through method 'sqlSessionTemplate' parameter 0; 
+		nested exception is org.springframework.beans.factory.BeanCreationException: 
+		Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/zerock/config/MyBatisConfig.class]: 
+		Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: 
+		Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: 
+		Factory method 'sqlSessionFactory' threw exception; nested exception is org.springframework.core.NestedIOException: 
+		Failed to parse mapping resource: 'file [C:\Users\NT930QAA\IdeaProjects\ex01\target\classes\mapper\boardMapper.xml]'; 
+		nested exception is org.apache.ibatis.builder.BuilderException: Error creating document instance.  
+		Cause: org.xml.sax.SAXParseException; lineNumber: 12; columnNumber: 4; 예기치 않은 파일의 끝입니다.
+	
+	- 설명
+	  1. mapper가 비어 있을 때 부트를 구동시키면 위와 같은 에러 발생
+	  2. 매퍼 설정 파일 템플릿이 configuration가 아닌 mapper인지 확인 필요
+	```
+3. spring-boot automatically create the DataSource bean from the values provided in the properties file
+	* [q](https://stackoverflow.com/questions/61364242/how-to-make-config-class-from-application-properties-in-spring-boot)
+4. .
 
 ##### [목차로 이동](#목차)
 
