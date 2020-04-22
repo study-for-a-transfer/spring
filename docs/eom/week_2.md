@@ -50,7 +50,7 @@
 #### 에러
 환경 설정하며 발생했던 에러를 기록한다.
 
-1. datasource  
+1. Failed to instantiate [javax.sql.DataSource]  
 	```txt
 	- 에러 메세지
 	org.springframework.beans.factory.BeanCreationException: 
@@ -89,7 +89,25 @@
 	```
 3. spring-boot automatically create the DataSource bean from the values provided in the properties file
 	* [q](https://stackoverflow.com/questions/61364242/how-to-make-config-class-from-application-properties-in-spring-boot)
-4. .
+4. No qualifying bean of type 'org.apache.ibatis.session.SqlSession' available  
+	```txt
+	- 에러 메세지
+	Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: 
+		Error creating bean with name 'boardDAOImpl': Unsatisfied dependency expressed through field 'sqlSession'; 
+		nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: 
+		No qualifying bean of type 'org.apache.ibatis.session.SqlSession' available: 
+		expected at least 1 bean which qualifies as autowire candidate. 
+		Dependency annotations: {@org.springframework.beans.factory.annotation.Autowired(required=true)}
+	
+	- 설명
+	  1. DAO 테스트를 위해 BoardDAO를 주입(@Autowired) 받음
+	  2. 테스트 환경에서 Bean 주입을 위해 @ContextConfiguration(classes = BoardDAOImpl.class) 추가
+	  3. DAO에서 SqlSession를 사용하므로 SqlSessionTemplate 주입 필요(MyBatisConfig.class 추가)
+	    - SqlSessionTemplate은 SqlSession의 구현체
+	    - https://mybatis.org/spring/ko/sqlsession.html
+	```
+	<img src="./img/week_02_01.png" width="700" height="350"></br>
+5. .
 
 ##### [목차로 이동](#목차)
 
@@ -118,5 +136,7 @@
 	2. [Spring Boot - DataSource configuration](https://howtodoinjava.com/spring-boot2/datasource-configuration/)
 	3. [Spring Boot JDBC Example](https://www.concretepage.com/spring-boot/spring-boot-jdbc-example)
 	4. [Spring Boot JDBC Examples](https://mkyong.com/spring-boot/spring-boot-jdbc-examples/)
+* Spring & DataSource
+	1. [Spring Boot - 복수 데이터 소스 설정](https://eblo.tistory.com/52)
 
 ##### [목차로 이동](#목차)
