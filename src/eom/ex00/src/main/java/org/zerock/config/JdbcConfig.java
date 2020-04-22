@@ -23,11 +23,11 @@ public class JdbcConfig {
     // alt + ins: toString 오버라이딩
     @Override
     public String toString() {
-        return "JdbcConfig{" +
-                "driverClassName='" + driverClassName + '\'' +
-                ", url='" + url + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+        return "JdbcConfig[" +
+                "driverClassName=" + driverClassName
+                + ", url=" + url
+                + ", username=" + username
+                + ", password=" + password
+                + "]";
     }
 }
