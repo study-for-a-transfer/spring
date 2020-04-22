@@ -23,7 +23,7 @@
 	1. [x] 브라우저에 Hello world 띄워보기
 	2. [x] MySQL 연결 테스트(jUnit)
 	3. [x] MySQL과의 연결 담당하는 DataSource 설정 테스트
-	4. [ ] MyBatis 연결 테스트
+	4. [x] MyBatis 연결 테스트
 - 추가
 	1. [ ] 개별 브랜치 추가
 
@@ -353,7 +353,7 @@ MyBatis를 스프링과 함께 사용하려면 스프링의 애플리케이션 �
 1. SqlSessionFactory
 	* 데이터베이스와의 연결을 생성하고, 처리
 2. Mapper Interface
-	* 
+	* .
 
 <img src="./img/week_01_01.png" width="800" height="300"></br>
 
